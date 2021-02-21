@@ -26,7 +26,6 @@ public class EmployeesIndexServlet extends HttpServlet {
      */
     public EmployeesIndexServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     /**
@@ -44,28 +43,20 @@ public class EmployeesIndexServlet extends HttpServlet {
                                      .setMaxResults(15)
                                      .getResultList();
 
-        long emloyees_count = (long)em.createNamedQuery("getEmployeesCount", Long.class)
-                                    .getSingleResult();
+        long employees_count = (long)em.createNamedQuery("getEmployeesCount", Long.class)
+                                       .getSingleResult();
 
         em.close();
 
-        request.setAttribute("emplyees", employees);
-        request.setAttribute("emloyees_count", emloyees_count);
-        request.setAttribute("page",page);
-        if(request.getSession().getAttribute("flush") != null){
+        request.setAttribute("employees", employees);
+        request.setAttribute("employees_count", employees_count);
+        request.setAttribute("page", page);
+        if(request.getSession().getAttribute("flush") != null) {
             request.setAttribute("flush", request.getSession().getAttribute("flush"));
             request.getSession().removeAttribute("flush");
         }
+
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/employees/index.jsp");
-        rd.forward(request,response);
+        rd.forward(request, response);
     }
-
-    /**
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-     */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO Auto-generated method stub
-        doGet(request, response);
-    }
-
 }
